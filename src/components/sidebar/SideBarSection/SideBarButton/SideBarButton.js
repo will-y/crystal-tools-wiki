@@ -7,3 +7,5 @@ function SideBarButton(props) {
         </div>
     );
 }
+
+export default SideBarButton;
