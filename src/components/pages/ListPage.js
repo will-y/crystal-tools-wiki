@@ -21,7 +21,7 @@ function ListPage(props) {
                                     {row.map((col, colID) => {
                                         return (
                                             <Col sm={4} key={(rowID * 3 + colID).toString()}>
-                                                <Link className={"btn btn-outline-primary btn-lg w-100"} to={`${props.data[col].name}`}>
+                                                <Link className={"btn btn-outline-primary btn-lg w-100"} to={`${col}`}>
                                                     {props.data[col].name}
                                                 </Link>
                                             </Col>
