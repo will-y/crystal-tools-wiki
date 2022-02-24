@@ -34,16 +34,16 @@ function App() {
                 <Col md={9}>
                     <BrowserRouter>
                         <Routes>
-                            <Route path="items" element={<ListPage title="items"/>}>
+                            <Route path="items" element={<ListPage title="items" data={data["items"]}/>}>
                                 <Route path=":pageID" element={<Page />} />
                             </Route>
-                            <Route path="blocks" element={<ListPage title="blocks"/>}>
+                            <Route path="blocks" element={<ListPage title="blocks" data={data["blocks"]}/>}>
                                 <Route path=":pageID" element={<Page />} />
                             </Route>
-                            <Route path="armor" element={<ListPage title="armor"/>}>
+                            <Route path="armor" element={<ListPage title="armor" data={data["armor"]}/>}>
                                 <Route path=":pageID" element={<Page />} />
                             </Route>
-                            <Route path="tools" element={<ListPage title="tools"/>}>
+                            <Route path="tools" element={<ListPage title="tools" data={data["tools"]}/>}>
                                 <Route path=":pageID" element={<Page />} />
                             </Route>
                         </Routes>
