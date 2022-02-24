@@ -1,5 +1,5 @@
 import './ListPage.css';
-import { Outlet } from "react-router-dom";
+import {Link, Outlet} from "react-router-dom";
 import {Card, Col, Row} from "react-bootstrap";
 import capitalize from "../../utils/StringUtils";
 import breakIntoRows from "../../utils/ArrayUtils";
@@ -17,11 +17,13 @@ function ListPage(props) {
                     <Card.Body>
                         {
                             rows.map((row, rowID) => {
-                                return (<Row key={"row" + rowID}>
+                                return (<Row key={"row" + rowID} className="m-2">
                                     {row.map((col, colID) => {
                                         return (
-                                            <Col md={4} key={(rowID * 3 + colID).toString()}>
-                                                {props.data[col].name}
+                                            <Col sm={4} key={(rowID * 3 + colID).toString()}>
+                                                <Link className={"btn btn-outline-primary btn-lg w-100"} to={`${props.data[col].name}`}>
+                                                    {props.data[col].name}
+                                                </Link>
                                             </Col>
                                         );
                                     })}
