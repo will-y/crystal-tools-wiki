@@ -11,7 +11,7 @@ function SideBarSection(props) {
                 <div className="d-grid gap-2">
                     {Object.keys(props.data).map((prop, index) => {
                         return (
-                            <SideBarButton key={index} data={props.data[prop]}/>
+                            <SideBarButton key={index} name={props.data[prop].name} id={prop} category={props.name}/>
                         );
                     })}
                 </div>
