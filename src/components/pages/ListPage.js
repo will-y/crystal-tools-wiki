@@ -11,7 +11,6 @@ function ListPage(props) {
 
         return (
             <div>
-                {props.title}
                 <Outlet />
                 <Card>
                     <Card.Header>{capitalize(props.title)}</Card.Header>
