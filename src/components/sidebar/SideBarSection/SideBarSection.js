@@ -1,6 +1,7 @@
 import './SideBarSection.css';
 import {Accordion} from "react-bootstrap";
 import SideBarButton from "./SideBarButton/SideBarButton";
+import capitalize from "../../../utils/StringUtils";
 
 function SideBarSection(props) {
     return (
@@ -17,14 +18,6 @@ function SideBarSection(props) {
             </Accordion.Body>
         </Accordion.Item>
     );
-}
-
-function capitalize(str) {
-    if (str.length > 0) {
-        return str.charAt(0).toUpperCase() + str.substring(1);
-    }
-
-    return str;
 }
 
 export default SideBarSection;

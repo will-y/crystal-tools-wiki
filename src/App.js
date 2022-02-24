@@ -5,13 +5,31 @@ import SideBar from "./components/sidebar/SideBar";
 import {BrowserRouter, Routes, Route} from "react-router-dom";
 import ListPage from "./components/pages/ListPage";
 import Page from "./components/pages/Page";
+import {child, get, ref} from "firebase/database";
+import database from "./firebase";
+import {useEffect, useState} from "react";
 
 function App() {
+    const dbRef = ref(database);
+    const [data, setData] = useState([]);
+
+    useEffect(() => {
+        get(child(dbRef, '/')).then((snapshot) => {
+            if (snapshot.exists()) {
+                setData(snapshot.val());
+            } else {
+                console.log("No data available");
+            }
+        }).catch((error) => {
+            console.error(error);
+        });
+    });
+
     return (
         <Container fluid>
             <Row>
                 <Col md={3}>
-                    <SideBar />
+                    <SideBar data={data} />
                 </Col>
                 <Col md={9}>
                     <BrowserRouter>
