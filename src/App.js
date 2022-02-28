@@ -30,16 +30,16 @@ function App() {
         <BrowserRouter>
             <Routes>
                 <Route path="items" element={<ListPage title="items" data={data["items"]} sideBarData={data}/>}>
-                    <Route path=":pageID" element={<Page />} />
+                    <Route path=":pageID" element={<Page data={data["items"]} category="items" />} />
                 </Route>
                 <Route path="blocks" element={<ListPage title="blocks" data={data["blocks"]} sideBarData={data}/>}>
-                    <Route path=":pageID" element={<Page />} />
+                    <Route path=":pageID" element={<Page data={data["blocks"]} category="blocks" />} />
                 </Route>
                 <Route path="armor" element={<ListPage title="armor" data={data["armor"]} sideBarData={data}/>}>
-                    <Route path=":pageID" element={<Page />} />
+                    <Route path=":pageID" element={<Page data={data["armor"]} category="armor" />} />
                 </Route>
                 <Route path="tools" element={<ListPage title="tools" data={data["tools"]} sideBarData={data}/>}>
-                    <Route path=":pageID" element={<Page />} />
+                    <Route path=":pageID" element={<Page data={data["tools"]} category="tools" />} />
                 </Route>
                 <Route path="/" element={<HomePage sideBarData={data} />} />
             </Routes>
