@@ -1,12 +1,12 @@
+import './Section.css';
+
 function PageSection(props) {
     const itemData = props.data;
-    
+
     return (
-        <div>
-            <h2>Page Section</h2>
-            <h3>{props.id}</h3>
-            <h3>{itemData.title}</h3>
-            <h3>{itemData.text}</h3>
+        <div className="section-container m-2">
+            <h2 className="section-title pb-1">{itemData.title}</h2>
+            <p className="section-text">{itemData.text}</p>
         </div>
     );
 }
