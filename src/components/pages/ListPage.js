@@ -18,7 +18,7 @@ function ListPage(props) {
                     <Col md={9}>
                         <div>
                             <Outlet />
-                            <Card>
+                            <Card className="mt-2">
                                 <Card.Header>{capitalize(props.title)}</Card.Header>
                                 <Card.Body>
                                     {
