@@ -9,10 +9,10 @@ function PageSection(props) {
         <div className="section-container m-2">
             <h2 className="section-title pb-1">{itemData.title}</h2>
             <div className="row">
-                <div className="section-text col-md-9">
+                <div className={"section-text-container " + (images[0].length > 0 ? "col-md-9" : "")}>
                     <p className="section-text">{itemData.text}</p>
                 </div>
-                <div className="section-images col-md-3">
+                <div className={"section-images " + (images[0].length > 0 ? "col-md-3" : "")}>
                     {
                         images[0].map((image, index) => {
                             return (
