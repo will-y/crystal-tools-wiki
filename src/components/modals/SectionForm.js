@@ -14,9 +14,25 @@ function SectionForm(props) {
     const sectionTitle = useRef(null);
     const sectionText = useRef(null);
 
+    const imageLinkRefs = new Array(images);
+    const imageCaptionRefs = new Array(images);
+
+    for (let i = 0; i < images; i++) {
+        // eslint-disable-next-line react-hooks/rules-of-hooks
+        imageLinkRefs[i] = useRef(null);
+        // eslint-disable-next-line react-hooks/rules-of-hooks
+        imageCaptionRefs[i] = useRef(null);
+    }
+
     const handleSubmit = () => {
         // alert(sectionTitle.current.value);
         // alert(sectionText.current.value);
+
+        if (sectionTitle.current.value === "" || sectionText.current.value === "") {
+            alert("Can't add a section with empty fields.");
+            return;
+        }
+
         const result = {
             order: 0,
             title: sectionTitle.current.value,
@@ -58,8 +74,8 @@ function SectionForm(props) {
                                 return (
                                     <Form.Group className="mb-3" key={index}>
                                         <Form.Label>Image {index}</Form.Label>
-                                        <Form.Control placeholder="Image Link" className="mb-2" />
-                                        <Form.Control placeholder="Image Caption" />
+                                        <Form.Control placeholder="Image Link" className="mb-2" ref={imageLinkRefs[index]}/>
+                                        <Form.Control placeholder="Image Caption" ref={imageCaptionRefs[index]} />
                                     </Form.Group>
                                 );
                             })
