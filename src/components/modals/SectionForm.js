@@ -7,22 +7,15 @@ import { ref, push, set } from "firebase/database";
 function SectionForm(props) {
     const [show, setShow] = useState(false);
     const [images, setImages] = useState(0);
+    const [imageLinks, setImageLinks] = useState([]);
+    const [imageCaptions, setImageCaptions] = useState([]);
+    const [imageInline, setImageInline] = useState([]);
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
     const sectionTitle = useRef(null);
     const sectionText = useRef(null);
-
-    const imageLinkRefs = new Array(images);
-    const imageCaptionRefs = new Array(images);
-
-    for (let i = 0; i < images; i++) {
-        // eslint-disable-next-line react-hooks/rules-of-hooks
-        imageLinkRefs[i] = useRef(null);
-        // eslint-disable-next-line react-hooks/rules-of-hooks
-        imageCaptionRefs[i] = useRef(null);
-    }
 
     const handleSubmit = () => {
         // alert(sectionTitle.current.value);
@@ -36,7 +29,16 @@ function SectionForm(props) {
         const result = {
             order: 0,
             title: sectionTitle.current.value,
-            text: sectionText.current.value
+            text: sectionText.current.value,
+            images: []
+        }
+
+        for (let i = 0; i < imageLinks.length; i++) {
+            result.images.push({
+                link: imageLinks[i],
+                caption: imageCaptions[i],
+                inline: imageInline[i]
+            });
         }
 
         const db = database;
@@ -47,6 +49,52 @@ function SectionForm(props) {
         });
 
         setShow(false);
+    }
+
+    const onAddImage = () => {
+        setImages(images + 1);
+        setImageLinks((prevState => {
+            const arr = JSON.parse(JSON.stringify(prevState));
+            arr.push("");
+            return arr;
+        }));
+        setImageCaptions((prevState => {
+            const arr = JSON.parse(JSON.stringify(prevState));
+            arr.push("");
+            return arr;
+        }));
+        setImageInline((prevState => {
+            const arr = JSON.parse(JSON.stringify(prevState));
+            arr.push("");
+            return arr;
+        }));
+    }
+
+    const onImageFieldChange = (event) => {
+        const nameSplit = event.target.name.split("-");
+        const name = nameSplit[0];
+        const id = parseInt(nameSplit[1]);
+        const value = event.target.value;
+
+        if (name === "link") {
+            setImageLinks((prevState => {
+                const arr = JSON.parse(JSON.stringify(prevState));
+                arr[id] = value;
+                return arr;
+            }));
+        } else if (name === "caption") {
+            setImageCaptions((prevState => {
+                const arr = JSON.parse(JSON.stringify(prevState));
+                arr[id] = value;
+                return arr;
+            }));
+        } else {
+            setImageInline((prevState => {
+                const arr = JSON.parse(JSON.stringify(prevState));
+                arr[id] = event.target.checked;
+                return arr;
+            }));
+        }
     }
 
     return (
@@ -74,14 +122,15 @@ function SectionForm(props) {
                                 return (
                                     <Form.Group className="mb-3" key={index}>
                                         <Form.Label>Image {index}</Form.Label>
-                                        <Form.Control placeholder="Image Link" className="mb-2" ref={imageLinkRefs[index]}/>
-                                        <Form.Control placeholder="Image Caption" ref={imageCaptionRefs[index]} />
+                                        <Form.Control placeholder="Image Link" className="mb-2" onChange={onImageFieldChange} name={`link-${index}`} />
+                                        <Form.Control placeholder="Image Caption" onChange={onImageFieldChange} name={`caption-${index}`} />
+                                        <Form.Check type="checkbox" label="Inline?" onChange={onImageFieldChange} name={`inline-${index}`} />
                                     </Form.Group>
                                 );
                             })
                         }
                         <Form.Group>
-                            <Button variant="primary" onClick={() => setImages(images + 1)}>Add Image</Button>
+                            <Button variant="primary" onClick={onAddImage}>Add Image</Button>
                         </Form.Group>
                     </Form>
                 </Modal.Body>
