@@ -1,9 +1,12 @@
 import './Section.css';
 import SectionImage from "./SectionImage";
+import breakIntoRows from "../../../utils/ArrayUtils";
 
 function PageSection(props) {
     const itemData = props.data;
     const images = separateImages(itemData.images);
+
+    const nonInlineImages = breakIntoRows(images[1], 4);
 
     return (
         <div className="section-container m-2">
@@ -22,6 +25,23 @@ function PageSection(props) {
                     }
                 </div>
             </div>
+            {
+                nonInlineImages.map((imageRow, rowIndex) => {
+                    return (
+                        <div className="row" key={`row-${rowIndex}`}>
+                            {
+                                imageRow.map((image, index) => {
+                                    return (
+                                        <div className="col-md-3" key={`row-${rowIndex}-col-${index}`}>
+                                            <SectionImage link={image.link} caption={image.caption} />
+                                        </div>
+                                    );
+                                })
+                            }
+                        </div>
+                    );
+                })
+            }
         </div>
     );
 }
