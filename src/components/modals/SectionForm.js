@@ -6,6 +6,7 @@ import { ref, push, set } from "firebase/database";
 
 function SectionForm(props) {
     const [show, setShow] = useState(false);
+    const [images, setImages] = useState(0);
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -21,8 +22,6 @@ function SectionForm(props) {
             title: sectionTitle.current.value,
             text: sectionText.current.value
         }
-
-        console.log(result);
 
         const db = database;
         const sectionsRef = ref(db, props.category + "/" + props.name + "/sections");
@@ -53,6 +52,20 @@ function SectionForm(props) {
                         <Form.Group className="mb-3" controlId="sectionText">
                             <Form.Label>Section Text</Form.Label>
                             <Form.Control placeholder="Section Text" as="textarea" rows={3} ref={sectionText} />
+                        </Form.Group>
+                        {
+                            [...Array(images).keys()].map((index) => {
+                                return (
+                                    <Form.Group className="mb-3" key={index}>
+                                        <Form.Label>Image {index}</Form.Label>
+                                        <Form.Control placeholder="Image Link" className="mb-2" />
+                                        <Form.Control placeholder="Image Caption" />
+                                    </Form.Group>
+                                );
+                            })
+                        }
+                        <Form.Group>
+                            <Button variant="primary" onClick={() => setImages(images + 1)}>Add Image</Button>
                         </Form.Group>
                     </Form>
                 </Modal.Body>
