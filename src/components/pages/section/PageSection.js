@@ -29,6 +29,10 @@ function PageSection(props) {
 function separateImages(imageList) {
     const result = [[], []];
 
+    if (! imageList) {
+        return result;
+    }
+
     for (let i = 0; i < imageList.length; i++) {
         if (imageList[i].inline) {
             result[0].push(imageList[i]);
