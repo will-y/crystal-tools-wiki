@@ -1,7 +1,9 @@
+import Image from 'react-bootstrap/Image'
+
 function SectionImage(props) {
     return (
         <div>
-            <img src={props.link}  alt={props.caption} />
+            <Image src={props.link}  alt={props.caption} fluid={true}/>
             <p>{props.caption}</p>
         </div>
     );
