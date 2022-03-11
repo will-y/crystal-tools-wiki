@@ -1,6 +1,6 @@
 import {useParams} from "react-router-dom";
 import SectionForm from "../modals/SectionForm";
-import PageSection from "./PageSection";
+import PageSection from "./section/PageSection";
 
 function Page(props) {
     const params = useParams();
