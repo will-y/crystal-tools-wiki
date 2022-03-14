@@ -9,6 +9,7 @@ function SectionForm(props) {
     const [images, setImages] = useState(0);
     const [imageLinks, setImageLinks] = useState([]);
     const [imageCaptions, setImageCaptions] = useState([]);
+    const [imageWikiLinks, setImageWikiLinks] = useState([]);
     const [imageInline, setImageInline] = useState([]);
 
     const handleClose = () => setShow(false);
@@ -37,6 +38,7 @@ function SectionForm(props) {
             result.images.push({
                 link: imageLinks[i],
                 caption: imageCaptions[i],
+                wikiLink:imageWikiLinks[i],
                 inline: imageInline[i]
             });
         }
@@ -63,6 +65,11 @@ function SectionForm(props) {
             arr.push("");
             return arr;
         }));
+        setImageWikiLinks((prevState => {
+            const arr = JSON.parse(JSON.stringify(prevState));
+            arr.push("");
+            return arr;
+        }));
         setImageInline((prevState => {
             const arr = JSON.parse(JSON.stringify(prevState));
             arr.push("");
@@ -84,6 +91,12 @@ function SectionForm(props) {
             }));
         } else if (name === "caption") {
             setImageCaptions((prevState => {
+                const arr = JSON.parse(JSON.stringify(prevState));
+                arr[id] = value;
+                return arr;
+            }));
+        } else if (name === "wiki_link") {
+            setImageWikiLinks((prevState => {
                 const arr = JSON.parse(JSON.stringify(prevState));
                 arr[id] = value;
                 return arr;
@@ -124,6 +137,7 @@ function SectionForm(props) {
                                         <Form.Label>Image {index}</Form.Label>
                                         <Form.Control placeholder="Image Link" className="mb-2" onChange={onImageFieldChange} name={`link-${index}`} />
                                         <Form.Control placeholder="Image Caption" onChange={onImageFieldChange} name={`caption-${index}`} />
+                                        <Form.Control placeholder="Image Wiki Link" onChange={onImageFieldChange} name={`wiki_link-${index}`} />
                                         <Form.Check type="checkbox" label="Inline?" onChange={onImageFieldChange} name={`inline-${index}`} />
                                     </Form.Group>
                                 );

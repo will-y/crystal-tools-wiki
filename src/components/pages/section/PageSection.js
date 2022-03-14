@@ -7,19 +7,18 @@ function PageSection(props) {
     const images = separateImages(itemData.images);
 
     const nonInlineImages = breakIntoRows(images[1], 4);
-
     return (
         <div className="section-container m-2">
             <h2 className="section-title pb-1">{itemData.title}</h2>
             <div className="row">
                 <div className={"section-text-container " + (images[0].length > 0 ? "col-md-9" : "")}>
-                    <p className="section-text">{itemData.text}</p>
+                    <p className="section-text" dangerouslySetInnerHTML={{__html: itemData.text}} />
                 </div>
                 <div className={"section-images " + (images[0].length > 0 ? "col-md-3" : "")}>
                     {
                         images[0].map((image, index) => {
                             return (
-                                <SectionImage link={image.link} caption={image.caption} key={index}/>
+                                <SectionImage link={image.link} caption={image.caption} key={index} wikiLink={image.wikiLink}/>
                             );
                         })
                     }
@@ -33,7 +32,7 @@ function PageSection(props) {
                                 imageRow.map((image, index) => {
                                     return (
                                         <div className="col-md-3" key={`row-${rowIndex}-col-${index}`}>
-                                            <SectionImage link={image.link} caption={image.caption} />
+                                            <SectionImage link={image.link} caption={image.caption} wikiLink={image.wikiLink}/>
                                         </div>
                                     );
                                 })
