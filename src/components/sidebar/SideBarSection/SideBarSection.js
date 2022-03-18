@@ -9,7 +9,7 @@ function SideBarSection(props) {
             <Accordion.Header>{capitalize(props.name)}</Accordion.Header>
             <Accordion.Body>
                 <div className="d-grid gap-2">
-                    {Object.keys(props.data).map((prop, index) => {
+                    {sortObject(props.data).map((prop, index) => {
                         return (
                             <SideBarButton key={index} name={props.data[prop].name} id={prop} category={props.name}/>
                         );
@@ -18,6 +18,23 @@ function SideBarSection(props) {
             </Accordion.Body>
         </Accordion.Item>
     );
+}
+
+function sortObject(data) {
+    const keys = Object.keys(data);
+
+    keys.sort((a, b) => {
+        const objA = data[a];
+        const objB = data[b];
+
+        if (!("order" in objA) || !("order" in objB)) return 0;
+
+        // console.log(objA);
+        // console.log(objB);
+        return objA.order - objB.order;
+    });
+
+    return keys;
 }
 
 export default SideBarSection;
